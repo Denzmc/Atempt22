@@ -35,8 +35,12 @@ public class User implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;

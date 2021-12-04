@@ -12,13 +12,16 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>${name}</h2>
+    <h2>${user.name}</h2>
     <table border="1">
-        <tr><th>Quote   </th><th>Price, USD  </th><th>Transaction   </th></tr>
-        <tr><td>Amazon   </td><td>${amazon}</td><td><a href="${pageContext.request.contextPath}/amazon?name=${name}" >Buy</a></td></tr>
-        <tr><td>Apple   </td><td>${apple}</td><td><a href="${pageContext.request.contextPath}/apple?name=${name}" >Buy</a></td></tr>
-        <tr><td>Nvidia   </td><td>${nvidia}</td><td><a href="${pageContext.request.contextPath}/nvidia?name=${name}" >Buy</a></td></tr>
-        <tr><td>Tesla   </td><td>${tesla}</td><td><a href="${pageContext.request.contextPath}/tesla?name=${name}" >Buy</a></td></tr>
+        <tr><th>Stock   </th><th>Price, USD  </th><th>Transaction   </th></tr>
+        <c:forEach var="stock" items="${stocks}">
+            <tr>
+                <td>${stock.nameStock}</td>
+                <td>${stock.priceStock}</td>
+                <td><a href="${pageContext.request.contextPath}/${stock.nameStock}?name=${user.name}" >Buy</a></td>
+            </tr>
+        </c:forEach>
     </table>
 <br>
     <br>
@@ -26,8 +29,8 @@
 <h5>Account status</h5>
 <table border="1">
     <tr><th>Total</th><th>Balance</th><th>Amazon</th><th>Apple</th><th>Nvidia</th><th>Tesla</th></tr>
-    <tr><td>${total}</td><td>${balance}</td><td>${amquan}</td><td>${apquan}</td><td>${nvquan}</td><td>${tequan}</td></tr>
-
+    <tr><td>${user.allMoney}</td><td>${user.freeMoney}</td><td>${user.amazon}</td><td>${user.apple}</td><td>${user.nvidia}</td><td>${user.tesla}</td></tr>
+    <tr><td>${totaldiff}</td></tr>
 </table>
 <br>
 <br>

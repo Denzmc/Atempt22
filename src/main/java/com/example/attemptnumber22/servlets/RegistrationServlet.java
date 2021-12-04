@@ -13,14 +13,14 @@ import java.io.IOException;
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 
-    String name;
-    String password;
-    String confirmPassword;
-    String message;
+    private String name;
+    private String password;
+    private String confirmPassword;
+    private String message;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        req.setAttribute("message", message);
         getServletContext().getRequestDispatcher("/registration.jsp").forward(req, resp);
     }
 
@@ -37,7 +37,9 @@ public class RegistrationServlet extends HttpServlet {
         }
         if (UserDB.readByName(name) != null ) {
             message = "Пользователь с таким именем уже существует";
+            doGet(req, resp);
         } else {
+            message = "";
             User user = new User(name, password);
             UserDB.saveUser(user);
             resp.sendRedirect(req.getContextPath()+"/hello-servlet");

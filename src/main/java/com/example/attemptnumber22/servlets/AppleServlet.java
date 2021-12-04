@@ -1,6 +1,7 @@
 package com.example.attemptnumber22.servlets;
 
-import com.example.attemptnumber22.Service;
+import com.example.attemptnumber22.Stock;
+import com.example.attemptnumber22.StockDB;
 import com.example.attemptnumber22.User;
 import com.example.attemptnumber22.UserDB;
 
@@ -12,15 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
-@WebServlet("/apple")
+@WebServlet("/AAPL")
 public class AppleServlet extends HttpServlet {
-    public AppleServlet() throws IOException {}
+
     String name;
     String quote = "Apple";
     User user;
-    Service service = new Service();
+
     Integer available;
-    Float price = service.getApplePrice();
+    Stock stock = StockDB.readByName("AAPL");
+    Float price = stock.getPriceStock();
     Float freeMoney;
     Integer quantity;
 
