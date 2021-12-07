@@ -19,7 +19,7 @@
             <tr>
                 <td>${stock.nameStock}</td>
                 <td>${stock.priceStock}</td>
-                <td><a href="${pageContext.request.contextPath}/${stock.nameStock}?name=${user.name}" >Buy</a></td>
+                <td><a href="${pageContext.request.contextPath}/buy?stock=${stock.nameStock}&name=${user.name}" >Buy</a></td>
             </tr>
         </c:forEach>
     </table>

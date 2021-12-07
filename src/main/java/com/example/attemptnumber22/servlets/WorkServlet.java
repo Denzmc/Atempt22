@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
@@ -29,14 +28,6 @@ public class WorkServlet extends HttpServlet {
 
     private String name;
     private User user;
-
-    private Float freeMoney;
-    private Float allMoney;
-    private Float amazonMoney;
-    private Float appleMoney;
-    private Float nvidiaMoney;
-    private Float teslaMoney;
-    private Float difference;
 
     @Override
     public void init() {
@@ -58,7 +49,7 @@ public class WorkServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        stocks = StockDB.getAllStocks();
         req.setAttribute("stocks", stocks);
 
         name = req.getParameter("name");
@@ -66,11 +57,18 @@ public class WorkServlet extends HttpServlet {
         user = UserDB.readByName(name);
 
         req.setAttribute("user", user);
-        //ошибка
-        difference = user.getFreeMoney() + user.getAmazon() + user.getApple() + user.getNvidia() + user.getTesla();
+
+        Float cashAmzn = StockDB.readByName("AMZN").getPriceStock()*user.getAmazon();
+        Float cashAppl = StockDB.readByName("AAPL").getPriceStock()*user.getApple();
+        Float cashNvda = StockDB.readByName("NVDA").getPriceStock()*user.getNvidia();
+        Float cashTsla = StockDB.readByName("TSLA").getPriceStock()*user.getTesla();
+        Float sumOfStocks = cashAmzn + cashAppl + cashNvda + cashTsla;
+
+        user.setAllMoney(user.getFreeMoney() + sumOfStocks);
+        Float difference = user.getFreeMoney() + sumOfStocks - 1000000F;
 
         req.setAttribute("totaldiff", difference);
-
+        UserDB.updateUser(user);
         getServletContext().getRequestDispatcher("/work.jsp").forward(req, resp);
     }
 
@@ -93,5 +91,9 @@ public class WorkServlet extends HttpServlet {
             return Float.parseFloat(price);
         }
         return null;
+    }
+    private Float priceOfUserStocks(User user, List<Stock> stocks){
+         Float sum = StockDB.readByName("AMZN").getPriceStock()*user.getAmazon();
+        return sum;
     }
 }
