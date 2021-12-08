@@ -62,6 +62,7 @@ public class WorkServlet extends HttpServlet {
         Float cashAppl = StockDB.readByName("AAPL").getPriceStock()*user.getApple();
         Float cashNvda = StockDB.readByName("NVDA").getPriceStock()*user.getNvidia();
         Float cashTsla = StockDB.readByName("TSLA").getPriceStock()*user.getTesla();
+
         Float sumOfStocks = cashAmzn + cashAppl + cashNvda + cashTsla;
 
         user.setAllMoney(user.getFreeMoney() + sumOfStocks);
@@ -88,7 +89,9 @@ public class WorkServlet extends HttpServlet {
         if (root != null) {
             JsonObject rootobj = root.getAsJsonObject();
             String price = rootobj.get("price").getAsString();
-            return Float.parseFloat(price);
+            Float a = Float.parseFloat(price);
+            Float round = (float) Math.floor(100*a);
+            return round/100;
         }
         return null;
     }

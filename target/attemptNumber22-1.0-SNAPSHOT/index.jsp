@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Login</h1>
-<form action="hello-servlet" method="post">
+<form action="hello" method="post">
     Enter Username<input type="text" placeholder="Enter username" name="username"><br>
     Enter password<input type="password" placeholder="Password" name="pass"><br>
     <input type="submit" value="Login"> <br>

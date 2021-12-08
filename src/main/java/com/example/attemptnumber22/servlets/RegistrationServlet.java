@@ -42,7 +42,7 @@ public class RegistrationServlet extends HttpServlet {
             message = "";
             User user = new User(name, password);
             UserDB.saveUser(user);
-            resp.sendRedirect(req.getContextPath()+"/hello-servlet");
+            resp.sendRedirect(req.getContextPath()+"/hello");
         }
     }
 }

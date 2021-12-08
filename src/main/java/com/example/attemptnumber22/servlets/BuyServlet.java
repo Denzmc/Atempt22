@@ -36,7 +36,7 @@ public class BuyServlet extends HttpServlet {
         req.setAttribute("quote", stockName);
         req.setAttribute("price" , price);
 
-        available = Math.round(user.getFreeMoney() / price) ;
+        available = (int) Math.floor(user.getFreeMoney() / price) ;
 
         req.setAttribute("available", available);
         req.setAttribute("instock", getStockQuantity(user,stockName));
@@ -59,9 +59,10 @@ public class BuyServlet extends HttpServlet {
 
         quantity = getStockQuantity(user, stockName);
         //mistake
-//        user.setAmazon(quantity + buyQuantity - sellQuantity);
+
         int transaction = quantity + buyQuantity - sellQuantity;
         setQuantity(user,stockName, transaction);
+
         freeMoney = user.getFreeMoney() - price*(buyQuantity - sellQuantity);
         user.setFreeMoney(freeMoney);
 

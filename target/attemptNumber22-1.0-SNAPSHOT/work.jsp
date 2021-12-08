@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Work Page</title>
 </head>
 <body>
     <h2>${user.name}</h2>
@@ -37,6 +37,14 @@
 <br>
 <form method="post">
     <input type="submit" value="UPDATE STATUS">
+</form>
+<br>
+    <a href="${pageContext.request.contextPath}/hello">Main page</a>
+<br>
+    <br>
+    <br>
+<form action="${pageContext.request.contextPath}/delete?name=${user.name}" method="post">
+    <input type="submit" value="Delete account!">
 </form>
 </body>
 </html>
