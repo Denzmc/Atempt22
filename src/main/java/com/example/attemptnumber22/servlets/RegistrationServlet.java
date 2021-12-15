@@ -13,9 +13,6 @@ import java.io.IOException;
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 
-    private String name;
-    private String password;
-    private String confirmPassword;
     private String message;
 
     @Override
@@ -27,9 +24,9 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        name = req.getParameter("username");
-        password = req.getParameter("pass");
-        confirmPassword = req.getParameter("cpass");
+        String name = req.getParameter("username");
+        String password = req.getParameter("pass");
+        String confirmPassword = req.getParameter("cpass");
 
         if (!password.equals(confirmPassword)){
             message = "Пароль не подтвержден";
